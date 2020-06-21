@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD Application</title>
+    <link href="{{url_for('static',filename='css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static',filename='teacher.png')}}" rel="shortcut icon">
+
+</head>
+<body>
+{% block body %}
+
+<div class="container">
+    <div class="well text-center">
+         <h1>Python Flask CRUD Web Application Development</h1>
+    </div>
+<div class="container">
+    <div class="row">
+        <div class="col md-12">
+            <h2>Student List <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#mymodal" >Add Student Data</button></h2>
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+
+
+            <div class = "alert alert-success alert-dismissable"  role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                    <span aria-hidden="true">X</span>
+                </button>
+                     {{ message }}
+
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+
+            <table class="table table-striped">
+                <tr>
+                    <th>Serial</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Action</th>
+                </tr>
+                {% for row in students %}
+                <tr>
+                    <td>{{row.0}}</td>
+                    <td>{{row.1}}</td>
+                    <td>{{row.2}}</td>
+                    <td>{{row.3}}</td>
+                    <td><a href="/update/{{row.0}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{row.0}}">Edit</a>
+                        <a href="/delete/{{row.0}}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure For Delete?')">Delete</a>
+                    </td>
+                </tr>
+                    <div id="modaledit{{row.0}}" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Please Update Data</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="{{url_for('update')}}" method="POST">
+                        <div class="form-group">
+                            <label>Name:</label>
+                            <input type="hidden" name="id" value="{{row.0}}">
+                            <input type="text" name="name" required="required" value="{{row.1}}" class="form-control">
+                        </div>
+                          <div class="form-group">
+                            <label>Email:</label>
+                            <input type="text" name="email" required="required" value="{{row.2}}" class="form-control">
+                        </div>
+
+                          <div class="form-group">
+                            <label>Phone:</label>
+                            <input type="text" maxlength="10" name="phone" required="required" value="{{row.3}}" class="form-control">
+                        </div>
+
+                          <div class="form-group">
+                              <button type="submit" class="btn btn-primary">Update</button>
+                          </div>
+
+
+
+
+                    </form>
+
+                 </div>
+                  <div style="background-color: #f0e68c;" class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+    <div id="mymodal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Please Insert Data</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ url_for('insert') }}" method="POST">
+                        <div class="form-group">
+                            <label>Name:</label>
+                            <input type="text" name="name" required="required" class="form-control">
+                        </div>
+                          <div class="form-group">
+                            <label>Email:</label>
+                            <input type="text" name="email" required="required" class="form-control">
+                        </div>
+
+                          <div class="form-group">
+                            <label>Phone:</label>
+                            <input type="text" maxlength="10" name="phone" required="required" class="form-control">
+                        </div>
+
+                          <div class="form-group">
+                              <button type="submit" class="btn btn-primary">Submit</button>
+                          </div>
+
+
+
+
+                    </form>
+
+                 </div>
+                  <div style="background-color: #f0e68c;" class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+    {% endblock %}
+<div class="well">
+    <h3>Website:www.linkendin.com
+        <span class="pull-right">Like this project</span>
+    </h3>
+</div>
+</div>
+</div>
+
+</body>
+<script type="text/javascript" src="{{url_for('static',filename='js/jquery-3.2.1.min.js')}}"></script>
+
+<script type="text/javascript" src="{{url_for('static',filename='js/bootstrap.min.js')}}"></script>
+</html>
