@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 app = Flask(__name__)
 app.secret_key = 'the random string'
 
-ENV = 'dev'
+ENV = 'prod'
 if ENV == 'dev':
     app.debug = True
     engine = create_engine('mysql+pymysql://root:Veni$ramya143@localhost/crudapplication')
