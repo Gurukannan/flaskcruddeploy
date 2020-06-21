@@ -11,7 +11,7 @@ if ENV == 'dev':
     conn = engine.connect()
 else:
     app.debug = False
-    engine = create_engine('')
+    engine = create_engine('postgres://kujrrtuapcyldt:05d9a283c5520b094485621b89ab066d459a6a187882d2533e123c1f6e22d2d3@ec2-52-20-248-222.compute-1.amazonaws.com:5432/d6mefonigbjjl2')
     conn = engine.connect()
 
 def CreateTable():
